@@ -1,0 +1,29 @@
+node("agent1") {
+    
+    customImage = ""
+    
+     stage("git checkout"){
+         echo "###################################################"
+         echo "Triggering Deployment, got notification from Github"
+         echo "###################################################" 
+         checkout scm
+      }
+    
+    stage("Docker") {
+        customImage = docker.build("jekat/kandula")
+    }
+    stage("Images") {
+        sh "docker image ls"
+        //sh "trivy image --timeout 5m --severity CRITICAL,HIGH jekat/kandula:latest"
+    }
+
+    stage("push to registry"){
+      withDockerRegistry(credentialsId: 'dockerhub') {
+        customImage.push()
+         }
+    }
+    stage("deploy to k8s") {
+        sh ("kubectl apply -f app_deployment.yaml") // ; kubectl rollout restart deployment opsschool-app-evgy")
+    }   
+
+}

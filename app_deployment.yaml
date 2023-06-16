@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opsschool-app-evgy
+  annotations:
+    kubernetes.io/change-cause: "First release kuard-amd64:1"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: opsschool-app-evgy
+  template:
+    metadata:
+      labels:
+        app: opsschool-app-evgy
+    spec:
+      containers:
+      - name: opsschool-app-evgy
+        image: jekat/kandula:latest
+        ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
