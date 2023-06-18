@@ -18,7 +18,7 @@ node("node1") {
     }
 
     stage("push to registry"){
-      withDockerRegistry(credentialsId: 'dockerhub') {
+      withDockerRegistry(credentialsId: '64df0ef0-270c-4e9e-8771-87daeec2db38') {
         customImage.push()
          }
     }
