@@ -1,6 +1,6 @@
 from boto3 import client
 
-REGION_NAME = 'us-east-1'
+REGION_NAME = 'us-east-2'
 
 SAMPLE_INSTANCE_DATA = {
     'Instances': [
